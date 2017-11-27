@@ -5,17 +5,7 @@ const yosay = require('yosay');
 
 module.exports = class extends Generator {
   prompting() {
-    // Have Yeoman greet the user.
-    this.log(yosay(
-      'Welcome to the funkadelic ' + chalk.red('generator-redux-cli') + ' generator!'
-    ));
-
-    const prompts = [{
-      type: 'confirm',
-      name: 'someAnswer',
-      message: 'Would you like to enable this option?',
-      default: true
-    }];
+    const prompts = [];
 
     return this.prompt(prompts).then(props => {
       // To access props later use this.props.someAnswer;
@@ -24,13 +14,14 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    this.fs.copy(
-      this.templatePath('dummyfile.txt'),
-      this.destinationPath('dummyfile.txt')
+    this.fs.copyTpl(
+      this.templatePath('redux'),
+      this.destinationPath('redux'),
+      this.props
     );
   }
 
   install() {
-    this.installDependencies();
+    // this.installDependencies();
   }
 };
