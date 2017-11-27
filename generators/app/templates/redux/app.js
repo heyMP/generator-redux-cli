@@ -1,4 +1,4 @@
-import { store } from "./redux/store/createStore.js";
+import { store } from "./store/createStore.js";
 
 window.<%= name %> = {
   store: store

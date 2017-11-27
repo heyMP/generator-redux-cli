@@ -31,6 +31,8 @@ module.exports = class extends Generator {
   }
 
   install() {
-    // this.installDependencies();
+    this.npmInstall(['redux'], { 'save-dev': true });
+    this.npmInstall(['redux-routing'], { 'save-dev': true });
+    this.npmInstall(['redux-thunk'], { 'save-dev': true });
   }
 };
