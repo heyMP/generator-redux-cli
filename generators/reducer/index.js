@@ -2,7 +2,7 @@
 const Generator = require('yeoman-generator');
 const chalk = require('chalk');
 const yosay = require('yosay');
-const camelcase = require('camelcase');
+const Case = require('case');
 
 module.exports = class extends Generator {
   prompting() {
@@ -10,13 +10,15 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the name space of your app?',
-        default: camelcase(this.appname)
+        message: 'What is the unique name of this reducer?'
       }
     ];
 
     return this.prompt(prompts).then(props => {
-      // To access props later use this.props.someAnswer;
+      props = Object.assign(props, {
+        nameConstant: Case.constant(props.name),
+        nameCamelCase: Case.camel(props.name)
+      });
       this.props = props;
     });
   }
