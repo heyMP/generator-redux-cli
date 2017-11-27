@@ -10,14 +10,15 @@ module.exports = class extends Generator {
       {
         type: 'input',
         name: 'name',
-        message: 'What is the unique name of this reducer?'
+        message: 'What is the unique name of this reducer?',
+        default: this.options.name ? this.options.name : ''
       }
     ];
 
     return this.prompt(prompts).then(props => {
       props = Object.assign(props, {
-        nameConstant: Case.constant(props.name),
-        nameCamelCase: Case.camel(props.name)
+        name: Case.camel(props.name),
+        nameConstant: Case.constant(props.name)
       });
       this.props = props;
     });
@@ -25,8 +26,8 @@ module.exports = class extends Generator {
 
   writing() {
     this.fs.copyTpl(
-      this.templatePath('redux'),
-      this.destinationPath('redux'),
+      this.templatePath('_name.js'),
+      this.destinationPath(`redux/reduers/${this.props.name}.js`),
       this.props
     );
   }
